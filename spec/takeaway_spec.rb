@@ -6,11 +6,11 @@ describe Takeaway do
 
   context '#dishes' do
     it 'should list all the dishes' do
-      takeaway.dishes.keys.should == ([:pizza, :curry])
+      takeaway.all_dishes.keys.should == ([:pizza, :curry])
     end
 
     it 'should list all the prices' do
-      takeaway.dishes.values.should == ([5.5, 7.5])
+      takeaway.all_dishes.values.should == ([5.5, 7.5])
     end
   end
 

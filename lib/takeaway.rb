@@ -1,9 +1,9 @@
 class Takeaway
 
-  attr_reader :dishes
+  attr_reader :all_dishes
 
   def initialize
-    @dishes = {pizza: 5.5, curry: 7.5}
+    @all_dishes = {pizza: 5.5, curry: 7.5}
   end
 
   def order(args)

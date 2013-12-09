@@ -4,10 +4,16 @@ class Order
 
   attr_reader :dishes, :total
 
-  def initialize(total = 0, dishes)
+  def initialize(takeaway, total = 0, dishes)
+    @takeaway = takeaway
     @total = total
     @dishes = dishes
     check_total
+    send_text
+  end
+
+  def send_text
+
   end
 
   def check_total
@@ -17,9 +23,7 @@ class Order
 
   def calc_total
     all_dishes = {pizza: 5.5, curry: 7.5}
-    total = 0
-    dishes.each { |dish, quantity| total += all_dishes[dish] * quantity}
-    total
+    dishes.inject(0) { |total, dish| total += all_dishes[dish.first] * dish.last}
   end
 
 end # of class

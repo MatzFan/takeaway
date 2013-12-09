@@ -3,8 +3,8 @@ require 'order'
 describe Order do
 
   let(:takeaway) { double('takeaway') }
-  let(:valid_order) { Order.new(18.5, {pizza: 2, curry: 1}) }
-  let(:invalid_order) { Order.new(18, {pizza: 2, curry: 1}) }
+  let(:valid_order) { Order.new(takeaway, 18.5, {pizza: 2, curry: 1}) }
+  let(:invalid_order) { Order.new(takeaway, 18, {pizza: 2, curry: 1}) }
 
   context '#initialize' do
     it 'a customer should be able to place an order with several dishes specified' do
