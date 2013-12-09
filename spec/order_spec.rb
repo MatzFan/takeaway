@@ -3,6 +3,7 @@ require 'order'
 describe Order do
 
   let(:takeaway) { double('takeaway') }
+  let(:twilio_client) { double('twilio_client') }
   let(:valid_order) { Order.new(takeaway, 18.5, {pizza: 2, curry: 1}) }
   let(:invalid_order) { Order.new(takeaway, 18, {pizza: 2, curry: 1}) }
 
@@ -20,6 +21,10 @@ describe Order do
     end
 
     it 'if a customer provides incorrect total an error should be raised' do
+      lambda { invalid_order }.should raise_error(InvalidOrderError, 'Order total is £18.5, not £18')
+    end
+
+    it 'a valid order should send a text to the customer' do
       lambda { invalid_order }.should raise_error(InvalidOrderError, 'Order total is £18.5, not £18')
     end
   end
