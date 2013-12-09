@@ -1,3 +1,5 @@
+require 'takeaway'
+
 class Order
 
   attr_reader :dishes, :total
@@ -9,7 +11,8 @@ class Order
   end
 
   def check_total
-    raise ArgumentError, "Order total is #{calc_total}, not #{total}" if calc_total != total
+    raise InvalidOrderError,
+    "Order total is £#{calc_total}, not £#{total}" if calc_total != total
   end
 
   def calc_total
@@ -22,6 +25,11 @@ class Order
 end # of class
 
 
-dishes = {pizza: 5.5, curry: 7.5}
-o = Order.new(18.5, {pizza: 2, curry: 1})
-p o.calc_total
+class InvalidOrderError < ArgumentError
+
+end
+
+
+# dishes = {pizza: 5.5, curry: 7.5}
+# o = Order.new(18.5, {pizza: 2, curry: 1})
+# p o.calc_total

@@ -3,24 +3,24 @@ require 'order'
 describe Order do
 
   let(:takeaway) { double('takeaway') }
-  let(:valid_order) { Order.new(13, {pizza: 2}, {curry: 3}) }
-  let(:invalid_order) { Order.new(12, {pizza: 2}, {curry: 3}) }
+  let(:valid_order) { Order.new(18.5, {pizza: 2, curry: 1}) }
+  let(:invalid_order) { Order.new(18, {pizza: 2, curry: 1}) }
 
   context '#initialize' do
     it 'a customer should be able to place an order with several dishes specified' do
-      valid_order.dishes.should == ([{pizza: 2}, {curry: 3}])
+      valid_order.dishes.should == ({pizza: 2, curry: 1})
     end
 
     it 'a customer should be able to place an order with order total specified' do
-      valid_order.total.should == (13)
+      valid_order.total.should == (18.5)
     end
 
-    it 'should calculate its total value' do
-      lambda { invalid_order }.should raise_error(IncorrectTotal, 'Order total is £13, not £12')
+    it 'if a customer provides correct total an error should not be raised' do
+      lambda { valid_order }.should_not raise_error(InvalidOrderError)
     end
 
-    xit 'if a customer provides incorrect total an error should be reaised' do
-      lambda { invalid_order }.should raise_error(IncorrectTotal, 'Order total is £13, not £12')
+    it 'if a customer provides incorrect total an error should be raised' do
+      lambda { invalid_order }.should raise_error(InvalidOrderError, 'Order total is £18.5, not £18')
     end
   end
 
