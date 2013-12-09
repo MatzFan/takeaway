@@ -3,24 +3,23 @@ require 'twilio-ruby'
 
 class Order
 
-  ACCOUNT_SID = ENV['TWILIO_AC_SID']
-  AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
+  attr_reader :dishes, :total, :takeaway
 
-  attr_reader :dishes, :total
-
-  def initialize(takeaway, total = 0, dishes)
-    @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
-    @takeaway = takeaway
-    @total = total
-    @dishes = dishes
+  def initialize(args)
+    @takeaway = args[:takeaway]
+    @client = Twilio::REST::Client.new takeaway::ACCOUNT_SID,
+                                       takeaway::AUTH_TOKEN
+    @customer = args[:customer]
+    @total = args[:total] || 0
+    @dishes = args[:dishes]
     check_total
     send_text
   end
 
   def send_text
     @client.account.messages.create(
-      :from => '+14159341234',
-      :to => '+16105557069',
+      :from => @takeaway.cell_num,
+      :to => @customer.cell_num,
       :body => "Thank you! Your order was placed and will be delivered before" +
       " #{Time.now - 3_600}")
     end
