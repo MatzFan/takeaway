@@ -17,11 +17,11 @@ describe Array do
     end
 
     it "should take a block, or symbol arg - not neither" do
-      lambda { array.new_inject }.should raise_error(LocalJumpError)
+      lambda { array.new_inject }.should raise_error(Exception)
     end
 
     it "should act like inject with a symbol if a symbol is given" do
-      lambda { array.new_inject(:*) }.should == array.inject(&block)
+      array.new_inject(:+).should == array.inject(:+)
     end
 
     it 'should behave like inject!' do
