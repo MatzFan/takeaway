@@ -4,8 +4,8 @@ describe Order do
 
   let(:takeaway) { double('takeaway') }
   let(:twilio_client) { double('twilio_client') }
-  let(:valid_order) { Order.new(takeaway, 18.5, {pizza: 2, curry: 1}) }
-  let(:invalid_order) { Order.new(takeaway, 18, {pizza: 2, curry: 1}) }
+  let(:valid_order) { Order.new({takeaway: takeaway, total: 18.5, dishes: {pizza: 2, curry: 1}}) }
+  let(:invalid_order) { Order.new({takeaway: takeaway, total: 18, dishes: {pizza: 2, curry: 1}}) }
 
   context '#initialize' do
     it 'a customer should be able to place an order with several dishes specified' do
