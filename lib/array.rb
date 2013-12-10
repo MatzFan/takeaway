@@ -1,8 +1,7 @@
 class Array
   def new_inject(memo = nil, sym = nil, &block)
-    sym = memo if !sym && memo.class == Symbol
+    sym, memo = memo, nil if !sym && memo.class == Symbol
     block = sym.to_proc if !block_given?
-
     result ||= nil
     puts "self is #{self.inspect}"
     if self.empty?
@@ -18,8 +17,8 @@ class Array
   end
 end
 
-puts [4,6,2,3].new_inject { |memo, e| memo += e }
+# puts [4,6,2,3].new_inject { |memo, e| memo += e }
 
-puts [4,6,2,3].inject { |memo, e| memo += e }
+# puts [4,6,2,3].inject { |memo, e| memo += e }
 
-puts [4,6,2,3].new_inject(:+)
+# puts [4,6,2,3].new_inject(:+)
