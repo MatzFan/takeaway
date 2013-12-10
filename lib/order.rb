@@ -1,28 +1,18 @@
 require 'takeaway'
-require 'twilio-ruby'
+require 'customer'
 
 class Order
 
-  attr_reader :dishes, :total, :takeaway
+  attr_reader :dishes, :total, :takeaway, :customer
 
   def initialize(args)
     @takeaway = args[:takeaway]
-    @client = Twilio::REST::Client.new takeaway::ACCOUNT_SID,
-                                       takeaway::AUTH_TOKEN
     @customer = args[:customer]
     @total = args[:total] || 0
     @dishes = args[:dishes]
     check_total
-    send_text
+    takeaway.send_text(customer)
   end
-
-  def send_text
-    @client.account.messages.create(
-      :from => @takeaway.cell_num,
-      :to => @customer.cell_num,
-      :body => "Thank you! Your order was placed and will be delivered before" +
-      " #{Time.now - 3_600}")
-    end
 
   def check_total
     raise InvalidOrderError,

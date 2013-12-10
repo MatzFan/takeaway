@@ -2,12 +2,11 @@ require 'takeaway'
 
 describe Takeaway do
 
-  let(:customer) { double('customer', {cell_num: '07829929051'}) }
+  let(:customer) { double('customer', {cell_num: '+447829929051'}) }
   let(:takeaway) { Takeaway.new }
   let(:order_details) { {customer: customer, total: 18.5, dishes: {pizza: 2, curry: 1}} }
+  let(:order) { double('order', {customer: customer, total: 18.5, dishes: {pizza: 2, curry: 1}}) }
   let(:twilio_client) { double('twilio_client')}
-
-  let(:order) { double('order') }
 
   context '#initialize' do
     it 'should be initialized with a list all the dishes' do
@@ -20,9 +19,9 @@ describe Takeaway do
   end
 
   context '#place_order' do
-    xit 'a customer should be able to place a valid order and get a text' do
-      twilio_client.should_receive
-      takeaway.place_order(order_details)
+    it 'should be able to receive a valid order for a customer' do
+      takeaway.stub(:place_order).and_return(order)
+      takeaway.place_order(order_details).should == order
     end
   end
 
