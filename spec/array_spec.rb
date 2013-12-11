@@ -6,6 +6,8 @@ describe Array do
    let(:array) { [4,6,2,3] }
    let(:block) { Proc.new { |e| e * 2 } }
 
+   # you don't really need this test. There's no way it fails but
+   # the others pass
     it "should be recognised by the Array class" do
       array.respond_to?(:new_inject).should be_true
     end
