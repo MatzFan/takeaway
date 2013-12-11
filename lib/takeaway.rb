@@ -2,6 +2,10 @@ require 'twilio-ruby'
 
 class Takeaway
 
+  # Because I don't have these,
+  # the tests fail out of the box
+  # The tests should always pass out of the box
+  # even if there are no env vars set
   ACCOUNT_SID = ENV['TWILIO_AC_SID']
   AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
 
@@ -9,6 +13,7 @@ class Takeaway
 
   def initialize
     @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
+    # this should have been a constant
     @all_dishes = {pizza: 5.5, curry: 7.5}
   end
 

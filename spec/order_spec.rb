@@ -20,6 +20,8 @@ describe Order do
     end
 
     it 'if a customer provides correct total an error should not be raised' do
+      # this doesn't stub send_text – does it get sent? :) 
+      # same for the tests above
       lambda { valid_order }.should_not raise_error(InvalidOrderError)
     end
 
